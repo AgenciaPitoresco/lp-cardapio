@@ -1,0 +1,1760 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Sheets - Sistema Completo de Delivery | Google Sheets para Restaurantes</title>
+    <meta name="description" content="Transforme sua planilha Google Sheets em um cardápio digital profissional com WhatsApp, cupons, endereços automáticos e sistema de delivery completo por apenas R$ 397.">
+    <meta name="keywords" content="cardápio digital, google sheets, delivery, restaurante, whatsapp, sistema de pedidos, cardápio online, food delivery, planilha cardápio">
+    <meta name="author" content="Dante Testa">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    <link rel="canonical" href="https://dantetesta.com.br/cardapio/">
+    
+    <!-- Performance & SEO -->
+    <meta name="theme-color" content="#0F9D58">
+    <meta name="msapplication-TileColor" content="#0F9D58">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    
+    <!-- Additional SEO -->
+    <meta name="geo.region" content="BR">
+    <meta name="geo.placename" content="Brasil">
+    <meta name="language" content="Portuguese">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dantetesta.com.br/cardapio/">
+    <meta property="og:title" content="Cardápio Sheets - Sistema Completo de Delivery">
+    <meta property="og:description" content="Transforme sua planilha Google Sheets em um cardápio digital profissional com WhatsApp, cupons, endereços automáticos e sistema de delivery completo.">
+    <meta property="og:image" content="https://dantetesta.com.br/cardapio/foto1.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Cardápio Sheets">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://dantetesta.com.br/cardapio/">
+    <meta property="twitter:title" content="Cardápio Sheets - Sistema Completo de Delivery">
+    <meta property="twitter:description" content="Transforme sua planilha Google Sheets em um cardápio digital profissional com WhatsApp, cupons, endereços automáticos e sistema de delivery completo.">
+    <meta property="twitter:image" content="https://dantetesta.com.br/cardapio/foto1.jpg">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Cardápio Sheets",
+        "description": "Sistema completo de delivery baseado em Google Sheets com integração WhatsApp, cupons e endereços automáticos",
+        "url": "https://dantetesta.com.br/cardapio/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "397",
+            "priceCurrency": "BRL",
+            "availability": "https://schema.org/InStock"
+        },
+        "creator": {
+            "@type": "Person",
+            "name": "Dante Testa",
+            "url": "https://dantetesta.com.br"
+        },
+        "featureList": [
+            "Integração WhatsApp",
+            "Sistema de Cupons",
+            "Endereços via CEP",
+            "Taxa de Entrega Automática",
+            "QR Codes para Mesas",
+            "Controle via Google Sheets"
+        ]
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sheets-green': '#0F9D58',
+                        'sheets-green-dark': '#0D8043',
+                        'sheets-green-light': '#E8F5E8'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0F9D58 0%, #34A853 100%);
+            position: relative;
+        }
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.15"/><circle cx="20" cy="80" r="0.5" fill="white" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(15, 157, 88, 0.1);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(15, 157, 88, 0.15);
+            border-color: rgba(15, 157, 88, 0.2);
+        }
+        .glass-pricing {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(15, 157, 88, 0.3);
+        }
+        .glass-tool {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        .glass-tool:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -12px rgba(15, 157, 88, 0.2);
+        }
+        .glass-changelog {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glass-contact {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .floating-shapes::before,
+        .floating-shapes::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        .floating-shapes::before {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            right: 10%;
+            animation-delay: -2s;
+        }
+        .floating-shapes::after {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: -4s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Flat Carousel Styles */
+        .carousel-container {
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .carousel-track {
+            display: flex;
+            width: 500%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-slide {
+            flex: 0 0 20%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: zoom-in;
+            transition: all 0.3s ease;
+            min-height: 600px;
+        }
+        
+        .carousel-image:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: zoomIn 0.3s ease;
+        }
+        
+        .lightbox-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, 
+                rgba(239, 68, 68, 0.9) 0%, 
+                rgba(220, 38, 38, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .lightbox-close:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, 
+                rgba(239, 68, 68, 1) 0%, 
+                rgba(220, 38, 38, 1) 100%);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes zoomIn {
+            from { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .carousel-arrow:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-arrow-left {
+            left: 20px;
+        }
+        
+        .carousel-arrow-right {
+            right: 20px;
+        }
+        
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #10b981;
+            transform: scale(1.2);
+        }
+        
+        .dot:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-wrapper {
+                height: 400px;
+            }
+            
+            .carousel-track {
+                width: 100%;
+            }
+            
+            .carousel-slide {
+                flex: 0 0 50%;
+            }
+            
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .carousel-arrow-left {
+                left: 10px;
+            }
+            
+            .carousel-arrow-right {
+                right: 10px;
+            }
+            
+            .carousel-dots {
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-top: 15px;
+            }
+            
+            .dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                    <span class="text-sheets-green font-bold text-xl">📊</span>
+                </div>
+                <h1 class="text-2xl font-bold">Cardápio Sheets</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#funcionalidades" class="hover:text-green-200 transition-colors">Funcionalidades</a>
+                <a href="#preco" class="hover:text-green-200 transition-colors">Preço</a>
+                <a href="#changelog" class="hover:text-green-200 transition-colors">Change Log</a>
+                <a href="#contato" class="hover:text-green-200 transition-colors">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20 relative overflow-hidden">
+        <div class="floating-shapes"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl font-bold mb-6" style="font-size: 234%;">O Cardápio Mais Eficiente que você já viu em uma Simples Planilha do Google Sheets</h1>
+              
+                
+                <!-- Vídeo Demonstrativo -->
+                <div class="mb-8">
+                    <div class="glass-card p-6 rounded-2xl max-w-3xl mx-auto">
+                        <div class="relative aspect-video rounded-xl overflow-hidden mb-4">
+                            <iframe 
+                                src="https://www.youtube.com/embed/EpqC1jgpVpA" 
+                                title="Cardápio Sheets - Como Transformar Google Sheets em Sistema de Delivery Profissional"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen
+                                loading="lazy"
+                                class="w-full h-full">
+                            </iframe>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-lg font-semibold mb-2">🎥 Assista o vídeo demonstrativo do Cardápio Sheets</p>
+                            <p class="text-sm opacity-80">Veja na prática como transformar sua planilha Google Sheets em um cardápio de delivery com WhatsApp</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-xl mb-8 opacity-90">Transforme sua planilha Google Sheets em um cardápio digital profissional com integração WhatsApp, sistema de cupons, endereços automáticos via CEP e muito mais! Ideal para restaurantes, lanchonetes, pizzarias e food trucks.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#contato" class="bg-white text-sheets-green px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors pulse-animation">
+                        🚀 Adquirir por R$ 397
+                    </a>
+                    <a href="#funcionalidades" class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-sheets-green transition-colors">
+                        📋 Ver Funcionalidades
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carrossel Full Width -->
+    <section class="bg-white">
+        <div class="w-full" style="padding-top: 50px;">
+            <div class="carousel-container mb-6">
+                <div class="carousel-wrapper">
+                    <button class="carousel-arrow carousel-arrow-left" onclick="prevSlide()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="carousel-arrow carousel-arrow-right" onclick="nextSlide()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="carousel-track" id="carouselTrack">
+                                <div class="carousel-slide">
+                                    <img src="app_1.webp" alt="Cardápio Sheets - Tela Principal" class="carousel-image" onclick="openLightbox('app_1.webp', 'Cardápio Sheets - Tela Principal')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_2.webp" alt="Interface de Produtos" class="carousel-image" onclick="openLightbox('app_2.webp', 'Interface de Produtos')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_3.webp" alt="Sistema de Categorias" class="carousel-image" onclick="openLightbox('app_3.webp', 'Sistema de Categorias')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_4.webp" alt="Configurações de Entrega" class="carousel-image" onclick="openLightbox('app_4.webp', 'Configurações de Entrega')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_5.webp" alt="Sistema de Cupons" class="carousel-image" onclick="openLightbox('app_5.webp', 'Sistema de Cupons')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_6.webp" alt="Integração WhatsApp" class="carousel-image" onclick="openLightbox('app_6.webp', 'Integração WhatsApp')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_7.webp" alt="Painel de Controle" class="carousel-image" onclick="openLightbox('app_7.webp', 'Painel de Controle')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_8.webp" alt="Relatórios e Analytics" class="carousel-image" onclick="openLightbox('app_8.webp', 'Relatórios e Analytics')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_9.webp" alt="Configurações Avançadas" class="carousel-image" onclick="openLightbox('app_9.webp', 'Configurações Avançadas')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_10.webp" alt="Sistema de Pedidos" class="carousel-image" onclick="openLightbox('app_10.webp', 'Sistema de Pedidos')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_11.webp" alt="Interface Mobile" class="carousel-image" onclick="openLightbox('app_11.webp', 'Interface Mobile')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_12.webp" alt="Gestão de Estoque" class="carousel-image" onclick="openLightbox('app_12.webp', 'Gestão de Estoque')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_13.webp" alt="Sistema de Avaliações" class="carousel-image" onclick="openLightbox('app_13.webp', 'Sistema de Avaliações')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_14.webp" alt="Configurações de Pagamento" class="carousel-image" onclick="openLightbox('app_14.webp', 'Configurações de Pagamento')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_15.webp" alt="Dashboard Financeiro" class="carousel-image" onclick="openLightbox('app_15.webp', 'Dashboard Financeiro')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_16.webp" alt="Sistema de Notificações" class="carousel-image" onclick="openLightbox('app_16.webp', 'Sistema de Notificações')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_17.webp" alt="Configurações de Horário" class="carousel-image" onclick="openLightbox('app_17.webp', 'Configurações de Horário')">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="app_18.webp" alt="Painel Administrativo" class="carousel-image" onclick="openLightbox('app_18.webp', 'Painel Administrativo')">
+                                </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carouselDots">
+                    <!-- Dots serão gerados dinamicamente pelo JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- História/Conto -->
+    <section class="py-20 bg-gradient-to-br from-sheets-green-light to-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-8">A História por Trás do Cardápio Sheets</h2>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-sheets-green/10">
+                    <div class="prose prose-lg mx-auto text-gray-700 leading-relaxed">
+                        <p class="text-xl mb-6">
+                            <strong>Era uma vez</strong> um desenvolvedor que percebeu que muitos restaurantes, lanchonetes e food trucks gastavam fortunas em sistemas complexos de delivery, quando tudo que precisavam era de algo <em>simples, eficiente e baseado no Google Sheets</em>.
+                        </p>
+                        
+                        <p class="mb-6">
+                            Observando restaurantes, lanchonetes e food trucks lutando com mensalidades caras e sistemas complicados, ele teve uma ideia: <strong>"E se pudéssemos usar o Google Sheets - que todo mundo já conhece - como base para um cardápio digital profissional?"</strong>
+                        </p>
+                        
+                        <p class="mb-6">
+                            Assim nasceu o <strong>Cardápio Sheets</strong>. Um sistema que transforma uma simples planilha em um cardápio digital completo, com integração WhatsApp, cálculo automático de entrega, sistema de cupons e muito mais.
+                        </p>
+                        
+                        <div class="bg-sheets-green-light rounded-lg p-6 my-8">
+                            <p class="text-sheets-green-dark font-semibold text-lg mb-2">💡 O Resultado?</p>
+                            <p class="text-gray-700">
+                                Centenas de negócios economizaram milhares de reais em mensalidades, ganharam autonomia total sobre seus cardápios e aumentaram suas vendas com um sistema que realmente funciona.
+                            </p>
+                        </div>
+                        
+                        <p class="text-lg font-medium text-sheets-green-dark">
+                            Hoje, você também pode fazer parte desta história de sucesso. <br>
+                            <span class="text-gray-700">Simples, eficiente e sem complicações.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funcionalidades -->
+    <section id="funcionalidades" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Funcionalidades Completas do Sistema de Delivery</h2>
+                <p class="text-xl text-gray-600">Tudo que você precisa para seu restaurante, lanchonete ou food truck em um só sistema</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Controle Total -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">📊</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Controle 100% via Planilha Google Sheets</h3>
+                    <p class="text-gray-600">Gerencie produtos, categorias, bairros, taxas de entrega e configurações gerais direto do Google Sheets</p>
+                </div>
+
+                <!-- WhatsApp Integration -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">💬</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Integração WhatsApp para Delivery</h3>
+                    <p class="text-gray-600">Envio automático de pedidos via WhatsApp Web ou API através de webhook para automações</p>
+                </div>
+
+                <!-- Endereços Automáticos -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">📍</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Endereços Automáticos via CEP</h3>
+                    <p class="text-gray-600">Preenchimento automático de endereços via CEP ou inserção manual pelo usuário</p>
+                </div>
+
+                <!-- Taxa de Entrega -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">🚚</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Taxa de Entrega Automática</h4>
+                    <p class="text-gray-600">Consulta automática de bairros com cálculo da taxa de entrega baseado na planilha</p>
+                </div>
+
+                <!-- Cupons de Desconto -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">🎫</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Sistema de Cupons</h4>
+                    <p class="text-gray-600">Cupons de desconto configuráveis para aplicar no checkout e aumentar vendas</p>
+                </div>
+
+                <!-- Troco -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">💰</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Cálculo de Troco</h4>
+                    <p class="text-gray-600">Sistema automático de cálculo de troco para pagamentos em dinheiro</p>
+                </div>
+
+                <!-- Imagens Flexíveis -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">🖼️</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Imagens Flexíveis</h4>
+                    <p class="text-gray-600">Suporte a imagens do Google Drive, Dropbox ou URLs externas</p>
+                </div>
+
+                <!-- QR Codes -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">📱</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">QR Codes para Mesas</h4>
+                    <p class="text-gray-600">Gerador de QR Codes que identifica automaticamente a mesa no checkout</p>
+                </div>
+
+                <!-- Horário de Funcionamento -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">🕒</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Horário de Funcionamento</h4>
+                    <p class="text-gray-600">Configure horários de funcionamento e controle quando o cardápio fica disponível</p>
+                </div>
+
+                <!-- Sistema de Envio -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">📤</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Sistema de Envio</h4>
+                    <p class="text-gray-600">Integração com WhatsApp Web, API e webhook para automações</p>
+                </div>
+
+                <!-- Configurações Gerais -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="w-12 h-12 bg-sheets-green rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">⚙️</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-3">Setup da Empresa</h4>
+                    <p class="text-gray-600">Configurações gerais completas para personalizar informações da empresa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ferramentas de Gestão -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Ferramentas de Gestão Avançadas para Restaurantes</h2>
+                <p class="text-xl text-gray-600">Sistemas complementares para facilitar sua operação de delivery e presencial</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-tool p-8 rounded-xl text-center">
+                    <div class="w-20 h-20 bg-sheets-green rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-3xl">🔧</span>
+                    </div>
+                    <h4 class="font-bold text-gray-800 mb-3 text-lg">Gerador de Variações</h4>
+                    <p class="text-gray-600">Sistema avançado para configurar variações de produtos na planilha</p>
+                </div>
+
+                <div class="glass-tool p-8 rounded-xl text-center">
+                    <div class="w-20 h-20 bg-sheets-green rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-3xl">🎨</span>
+                    </div>
+                    <h4 class="font-bold text-gray-800 mb-3 text-lg">Paleta de Cores</h4>
+                    <p class="text-gray-600">Gerador visual para personalizar cores do template facilmente</p>
+                </div>
+
+                <div class="glass-tool p-8 rounded-xl text-center">
+                    <div class="w-20 h-20 bg-sheets-green rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-3xl">📋</span>
+                    </div>
+                    <h4 class="font-bold text-gray-800 mb-3 text-lg">Gerador de QR Codes</h4>
+                    <p class="text-gray-600">Sistema para gerar QR Codes personalizados para mesas do estabelecimento</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preço e Oferta -->
+    <section id="preco" class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Investimento Único - Sem Mensalidades</h2>
+                <div class="glass-pricing p-8 rounded-2xl">
+                    <div class="mb-4">
+                        <div class="text-2xl text-red-600 font-bold mb-2">🔥 OFERTA DE LANÇAMENTO</div>
+                        <div class="flex items-center justify-center gap-4 mb-2">
+                            <span class="text-3xl text-gray-500 line-through">R$ 397</span>
+                            <span class="text-6xl font-bold text-sheets-green">R$ 297</span>
+                        </div>
+                        <div class="text-red-600 font-bold text-lg mb-2">⏰ Apenas até 31/07 - CORRE!</div>
+                    </div>
+                    <p class="text-xl text-gray-700 mb-6">Pagamento único • Sem mensalidades</p>
+                    
+                    <div class="space-y-3 mb-8 text-left">
+                        <div class="flex items-center">
+                            <span class="text-sheets-green mr-3">✅</span>
+                            <span>Cardápio digital completo</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-sheets-green mr-3">✅</span>
+                            <span>Suporte grátis por 30 dias</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-sheets-green mr-3">✅</span>
+                            <span>Tutoriais de instalação e configuração</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-sheets-green mr-3">✅</span>
+                            <span>Grupo de WhatsApp para suporte</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-sheets-green mr-3">✅</span>
+                            <span>Receba updates por 12 meses</span>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-600 mb-6">Desenvolvido por <strong>Dante Testa</strong></p>
+                    
+                    <a href="#contato" class="bg-sheets-green text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-sheets-green-dark transition-colors pulse-animation inline-block">
+                        💬 Adquirir via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Change Log -->
+    <section id="changelog" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-bold text-gray-800 mb-4">Change Log</h3>
+                <p class="text-xl text-gray-600">Acompanhe as últimas atualizações e melhorias</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-4">
+                    <!-- Versão 3.8 - Atual (sempre expandida) -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-sheets-green">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h4 class="text-xl font-bold text-gray-800">Versão 3.8</h4>
+                                    <p class="text-sm text-gray-500">25/07/2025</p>
+                                </div>
+                                <span class="bg-sheets-green text-white px-3 py-1 rounded-full text-sm">Atual</span>
+                            </div>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Remoção do scroll vertical ao abrir modais e preloader</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Ajustes no texto do preloader</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Melhorias no Webhook com suporte a parâmetros GET na URL</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Correção do scroll ao abrir modal, sempre no topo</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Customização de créditos do autor via planilha (autor_name / autor_link)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-2">⌨️</span>
+                                    <span>Sistema de atalhos: F1 (ajuda), Shift+V (variações), Shift+Q (QR Code), Shift+C (cores), Esc (fechar)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 3.7 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v37')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 3.7</h4>
+                                        <p class="text-sm text-gray-500">24/07/2025</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v37" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v37" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Sistema de Variações Múltiplas e App Gerador de Variações</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 3.6 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v36')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 3.6</h4>
+                                        <p class="text-sm text-gray-500">22/07/2025</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v36" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v36" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Modal automático para produtos com variações</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">🐛</span>
+                                    <span>Correção do bug no preenchimento manual de endereço</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Ícone QR Code no rodapé e preenchimento automático de mesa via URL</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">🛠️</span>
+                                    <span>Gerador de QR Codes para Estabelecimento</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Botão para expandir versões anteriores -->
+                    <div class="text-center py-6">
+                        <button 
+                            id="expandButton" 
+                            onclick="toggleOlderVersions()" 
+                            class="bg-sheets-green text-white px-6 py-3 rounded-lg font-semibold hover:bg-sheets-green-dark transition-all duration-300 flex items-center space-x-2 mx-auto"
+                        >
+                            <span id="expandText">📜 Ver versões anteriores</span>
+                            <svg id="expandIcon" class="w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Versões anteriores (inicialmente ocultas) -->
+                    <div id="olderVersions" class="hidden space-y-4 transition-all duration-500 ease-in-out">
+                        <!-- Versão 3.5 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v35')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 3.5</h4>
+                                        <p class="text-sm text-gray-500">20/07/2025</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v35" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v35" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Consulta de Taxa de Entrega por Bairro com nova aba na planilha</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Sistema de Cupom de Desconto com validação automática</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 3.4 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v34')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 3.4</h4>
+                                        <p class="text-sm text-gray-500">19/07/2025</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v34" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v34" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Campos de endereço editáveis com recálculo automático da taxa</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">🐛</span>
+                                    <span>Correções na mensagem WhatsApp e separadores padronizados</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 3.3 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v33')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 3.3</h4>
+                                        <p class="text-sm text-gray-500">18/07/2025 às 20h47</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v33" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v33" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">🐛</span>
+                                    <span>Correções visuais mobile, menu, cores e bugs nos tipos de recebimento</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Gerador de Cores - Nova ferramenta disponível</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 3.2 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v32')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 3.2</h4>
+                                        <p class="text-sm text-gray-500">17/07/2025 às 01h</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v32" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v32" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">🐛</span>
+                                    <span>Correções visuais mobile e sistema de fallback ViaCEP com 3 APIs</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 3.1 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v31')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 3.1</h4>
+                                        <p class="text-sm text-gray-500">16/07/2025 às 16h</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v31" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v31" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">🐛</span>
+                                    <span>Correções visuais mobile, validação DDI WhatsApp e performance</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 3.0 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v30')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 3.0</h4>
+                                        <p class="text-sm text-gray-500">16/07/2025</p>
+                                    </div>
+                                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">🚀 Rebuild</span>
+                                </div>
+                                <svg id="icon-v30" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v30" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Nova planilha modelo com abas e design completamente redesenhado</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Sistema monetário dinâmico e horário de funcionamento com timezone</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Cards com modal de detalhes, edição de observações e campo SKU</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">⚙️</span>
+                                    <span>Webhook, DDI para WhatsApp e novas notações de variação</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 2.0 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v20')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 2.0</h4>
+                                        <p class="text-sm text-gray-500">09/07/2025 às 21h50</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v20" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v20" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">🐛</span>
+                                    <span>Correção de bugs desktop para variações obrigatórias</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.9 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v19')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.9</h4>
+                                        <p class="text-sm text-gray-500">08/07/2025 às 10h20</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v19" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v19" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Suporte a imagens do Google Drive (link público)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Ajustes nas âncoras do menu e melhorias no design desktop</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.8 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v18')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.8</h4>
+                                        <p class="text-sm text-gray-500">08/07/2025 às 01h40</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v18" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v18" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-2">🎨</span>
+                                    <span>Redesign dos cards para dispositivos móveis e ajustes gerais de interface</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.7 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v17')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.7</h4>
+                                        <p class="text-sm text-gray-500">07/07/2025 às 14h40</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v17" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v17" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">⚙️</span>
+                                    <span>Separação do index.html com config.js para facilitar setup e atualizações</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Ajustes gerais de performance</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.6 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v16')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.6</h4>
+                                        <p class="text-sm text-gray-500">04/07/2025 às 23h</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v16" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v16" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Botões de compartilhamento geral e por categoria com scroll âncora</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Imagens dos produtos no carrinho</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-purple-500 mr-2">🎨</span>
+                                    <span>Ajustes gerais em componentes visuais</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.5 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v15')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.5</h4>
+                                        <p class="text-sm text-gray-500">02/07/2025 às 18h</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v15" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v15" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-2">🐛</span>
+                                    <span>Correção de bug de quebra de linha na planilha (suporte Alt+Enter)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.4 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v14')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.4</h4>
+                                        <p class="text-sm text-gray-500">02/07/2025 às 15h</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v14" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v14" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Consulta de endereço por CEP no modo delivery (API ViaCEP)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Melhoria no botão de adicionar ao carrinho</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.3 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v13')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.3</h4>
+                                        <p class="text-sm text-gray-500">02/07/2025 às 8h</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v13" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v13" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">⚙️</span>
+                                    <span>Controle para habilitar/desabilitar o sistema de carrinho de pedidos</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.2 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v12')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.2</h4>
+                                        <p class="text-sm text-gray-500">01/07/2025</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v12" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v12" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Sistema de variações de produtos (obrigatórias e opcionais)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">🔧</span>
+                                    <span>Ajustes gerais para incluir variações no título do produto</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.1 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v11')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.1</h4>
+                                        <p class="text-sm text-gray-500">30/06/2025</p>
+                                    </div>
+                                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">Anterior</span>
+                                </div>
+                                <svg id="icon-v11" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v11" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-2">✨</span>
+                                    <span>Campos para troco no pagamento em dinheiro (etapa 3)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-orange-500 mr-2">📋</span>
+                                    <span>Consumo no local não solicita mais forma de pagamento</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Versão 1.0 - Colapsável -->
+                    <div class="glass-changelog rounded-xl border-l-4 border-gray-300">
+                        <button class="w-full p-6 text-left focus:outline-none" onclick="toggleAccordion('v10')">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <h4 class="text-xl font-bold text-gray-800">Versão 1.0</h4>
+                                        <p class="text-sm text-gray-500">30/06/2025</p>
+                                    </div>
+                                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">🚀 Lançamento</span>
+                                </div>
+                                <svg id="icon-v10" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="content-v10" class="hidden px-6 pb-6">
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-blue-600 mr-2">🚀</span>
+                                    <span>Versão base do sistema - Release inicial</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div> <!-- Fechamento da div olderVersions -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h3 class="text-4xl font-bold mb-6">Entre em Contato</h3>
+                <p class="text-xl mb-8 opacity-90">Adquira o Cardápio Sheets e transforme seu negócio hoje mesmo!</p>
+                
+                <div class="glass-contact p-8 rounded-2xl mb-8">
+                    <div class="text-6xl mb-4">📱</div>
+                    <h4 class="text-2xl font-bold mb-4">WhatsApp</h4>
+                    <p class="mb-6">Clique no botão abaixo para falar diretamente comigo e fazer sua aquisição</p>
+                    <a href="https://wa.me/5519998021956?text=Olá! Tenho interesse no Cardápio Sheets por R$ 397" 
+                       class="bg-white text-sheets-green px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors inline-block pulse-animation"
+                       target="_blank">
+                        💬 Falar no WhatsApp
+                    </a>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <div class="text-3xl mb-2">🎯</div>
+                        <h5 class="font-bold mb-1">Suporte Completo</h5>
+                        <p class="text-sm opacity-80">30 dias de suporte grátis</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl mb-2">👥</div>
+                        <h5 class="font-bold mb-1">Comunidade</h5>
+                        <p class="text-sm opacity-80">Grupo exclusivo no WhatsApp</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl mb-2">🔄</div>
+                        <h5 class="font-bold mb-1">Updates</h5>
+                        <p class="text-sm opacity-80">12 meses de atualizações</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <img id="lightbox-image" class="lightbox-image" src="" alt="">
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-sheets-green rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold">📊</span>
+                </div>
+                <span class="text-xl font-bold">Cardápio Sheets</span>
+            </div>
+            <p class="text-gray-400 mb-4">Cardápio digital alimentado por Google Sheets</p>
+            <p class="text-sm text-gray-500">Desenvolvido por Dante Testa • © 2025 Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animação de entrada para cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animação aos cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Função para toggle do accordion
+        function toggleAccordion(version) {
+            const content = document.getElementById(`content-${version}`);
+            const icon = document.getElementById(`icon-${version}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Função para expandir/recolher versões anteriores
+        function toggleOlderVersions() {
+            const olderVersions = document.getElementById('olderVersions');
+            const expandText = document.getElementById('expandText');
+            const expandIcon = document.getElementById('expandIcon');
+            
+            if (olderVersions.classList.contains('hidden')) {
+                // Expandir
+                olderVersions.classList.remove('hidden');
+                expandText.textContent = '📜 Ocultar versões anteriores';
+                expandIcon.style.transform = 'rotate(180deg)';
+                
+                // Animação suave de entrada
+                setTimeout(() => {
+                    olderVersions.style.opacity = '1';
+                    olderVersions.style.maxHeight = 'none';
+                }, 10);
+            } else {
+                // Recolher
+                olderVersions.style.opacity = '0';
+                olderVersions.style.maxHeight = '0';
+                expandText.textContent = '📜 Ver versões anteriores';
+                expandIcon.style.transform = 'rotate(0deg)';
+                
+                // Aguardar animação antes de ocultar
+                setTimeout(() => {
+                    olderVersions.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96495eeb0224030d',t:'MTc1MzQyMjUzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>    <script>
+        // Carrossel Circular 3D - Roda Gigante Surpreendente!
+        let currentSlideIndex = 0;
+        const totalSlides = 18;
+        let autoSlideInterval;
+        let isTransitioning = false;
+        const radius = 250;
+        
+        function generateDots() {
+            const dotsContainer = document.getElementById('carouselDots');
+            dotsContainer.innerHTML = '';
+            
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => currentSlide(i + 1);
+                dotsContainer.appendChild(dot);
+            }
+        }
+        
+        function updateCarouselPositions() {
+            const track = document.getElementById('carouselTrack');
+            
+            // Detecta se é mobile ou desktop
+            const isMobile = window.innerWidth <= 768;
+            const slidesPerView = isMobile ? 2 : 5;
+            const slideWidth = 100 / slidesPerView; // Porcentagem por slide
+            
+            const translateX = -(currentSlideIndex * slideWidth);
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[currentSlideIndex]) {
+                dots[currentSlideIndex].classList.add('active');
+            }
+        }
+        
+        function showSlide(n) {
+            if (isTransitioning) return;
+            
+            // Detecta quantos slides mostrar por vez
+            const isMobile = window.innerWidth <= 768;
+            const slidesPerView = isMobile ? 2 : 5;
+            const maxSlideIndex = totalSlides - slidesPerView;
+            
+            if (n > maxSlideIndex) {
+                currentSlideIndex = 0;
+            } else if (n < 0) {
+                currentSlideIndex = maxSlideIndex;
+            } else {
+                currentSlideIndex = n;
+            }
+            
+            isTransitioning = true;
+            updateCarouselPositions();
+            
+            // Reset transition flag after animation
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 500);
+        }
+        
+        function currentSlide(n) {
+            currentSlideIndex = n - 1;
+            showSlide(currentSlideIndex);
+            resetAutoSlide();
+        }
+        
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+            resetAutoSlide();
+        }
+        
+        function prevSlide() {
+            showSlide(currentSlideIndex - 1);
+            resetAutoSlide();
+        }
+        
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(() => {
+                showSlide(currentSlideIndex + 1);
+            }, 3500);
+        }
+        
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+        
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            generateDots();
+            
+            // Inicializa o slider flat
+            updateCarouselPositions();
+            
+            showSlide(0);
+            startAutoSlide();
+            
+            // Pause auto-slide on hover
+            const carouselContainer = document.querySelector('.carousel-container');
+            if (carouselContainer) {
+                carouselContainer.addEventListener('mouseenter', () => {
+                    clearInterval(autoSlideInterval);
+                });
+                
+                carouselContainer.addEventListener('mouseleave', () => {
+                    startAutoSlide();
+                });
+            }
+            
+            // Touch/swipe support for mobile
+            let startX = 0;
+            let endX = 0;
+            
+            carouselContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+            
+            carouselContainer.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const threshold = 50;
+                const diff = startX - endX;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        nextSlide(); // Swipe left - next slide
+                    } else {
+                        prevSlide(); // Swipe right - previous slide
+                    }
+                }
+            }
+            
+            // Atualiza o carrossel quando a janela é redimensionada
+            window.addEventListener('resize', () => {
+                updateCarouselPositions();
+            });
+         });
+         
+         // Lightbox Functions
+         function openLightbox(imageSrc, caption) {
+             const lightbox = document.getElementById('lightbox');
+             const lightboxImage = document.getElementById('lightbox-image');
+             const lightboxCaption = document.getElementById('lightbox-caption');
+             
+             lightboxImage.src = imageSrc;
+             lightboxImage.alt = caption;
+             lightboxCaption.textContent = caption;
+             
+             lightbox.classList.add('active');
+             document.body.style.overflow = 'hidden';
+         }
+         
+         function closeLightbox(event) {
+             // Se o evento foi passado e o clique foi no conteúdo, não feche
+             if (event && event.target.closest('.lightbox-content') && !event.target.classList.contains('lightbox-close')) {
+                 return;
+             }
+             
+             const lightbox = document.getElementById('lightbox');
+             lightbox.classList.remove('active');
+             document.body.style.overflow = 'auto';
+         }
+         
+         // Fechar lightbox com ESC
+         document.addEventListener('keydown', function(event) {
+             if (event.key === 'Escape') {
+                 closeLightbox();
+             }
+         });
+    </script>
+</body>
+</html>
+
